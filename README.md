@@ -48,7 +48,7 @@ This project uses **Turborepo** to manage a monorepo with the following applicat
 
 ```bash
 # Clone the repository
-git clone <your-repo-url>
+git clone https://github.com/iamsg97/check-uptime
 cd check-uptime
 
 # Install dependencies
