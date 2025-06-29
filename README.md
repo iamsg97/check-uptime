@@ -1,135 +1,210 @@
-# Turborepo starter
+# Check Uptime
 
-This Turborepo starter is maintained by the Turborepo core team.
+A modern uptime monitoring application built with a Turborepo monorepo architecture. This project consists of a ping
+server backend and a client frontend for monitoring service availability and health checks.
 
-## Using this example
+## 🏗️ Architecture
 
-Run the following command:
+This project uses **Turborepo** to manage a monorepo with the following applications:
 
-```sh
-npx create-turbo@latest
+- **ping-server**: Express.js backend API for health checks and ping endpoints
+- **ping-client**: SvelteKit frontend application for monitoring dashboard
+- **docs**: Documentation and project structure information
+
+## 🚀 Features
+
+### Backend (ping-server)
+
+- **Health Check Endpoint** (`/health`) - Returns server status and uptime
+- **Ping Endpoint** (`/ping`) - Simple ping/pong response with timestamp
+- **User Authentication** - Sign-up and sign-in endpoints
+- Built with Express.js and TypeScript
+
+### Frontend (ping-client)
+
+- **SvelteKit Application** - Modern reactive frontend
+- **Storybook Integration** - Component development and testing
+- **Playwright E2E Testing** - End-to-end test coverage
+- **Vitest Unit Testing** - Component and unit test coverage
+
+## 📦 Tech Stack
+
+- **Runtime**: Bun (v1.2.11+)
+- **Monorepo**: Turborepo
+- **Backend**: Express.js + TypeScript
+- **Frontend**: SvelteKit + TypeScript
+- **Testing**: Playwright (E2E), Vitest (Unit)
+- **Linting**: ESLint + Prettier
+- **Package Manager**: Bun workspaces
+
+## 🛠️ Development Setup
+
+### Prerequisites
+
+- Node.js >= 18
+- Bun >= 1.2.11
+
+### Installation
+
+```bash
+# Clone the repository
+git clone <your-repo-url>
+cd check-uptime
+
+# Install dependencies
+bun install
 ```
 
-## What's inside?
+### Development Commands
 
-This Turborepo includes the following packages/apps:
+```bash
+# Start all applications in development mode
+bun dev
 
-### Apps and Packages
+# Start only the server
+bun dev:server
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+# Start only the client
+bun dev:ui
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+# Build all applications
+bun build
 
-### Utilities
+# Run linting
+bun lint
 
-This Turborepo has some additional tools already setup for you:
+# Format code
+bun format
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build
-yarn dlx turbo build
-pnpm exec turbo build
+# Type checking
+bun check-types
 ```
 
-You can build a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
+## 🏃‍♂️ Running the Application
 
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build --filter=docs
+### Development Mode
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build --filter=docs
-yarn exec turbo build --filter=docs
-pnpm exec turbo build --filter=docs
+```bash
+# Start both server and client
+bun dev
 ```
 
-### Develop
+The applications will be available at:
 
-To develop all apps and packages, run the following command:
+- **Server**: `http://localhost:3001`
+- **Client**: `http://localhost:5173` (default Vite port)
 
-```
-cd my-turborepo
+### Production Build
 
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev
+```bash
+# Build all applications
+bun build
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev
-yarn exec turbo dev
-pnpm exec turbo dev
-```
-
-You can develop a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
-
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev --filter=web
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev --filter=web
-yarn exec turbo dev --filter=web
-pnpm exec turbo dev --filter=web
+# Start the server in production
+cd apps/ping-server
+bun start
 ```
 
-### Remote Caching
+## 📡 API Endpoints
 
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-Turborepo can use a technique known as [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
+### Health Check
 
 ```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo login
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo login
-yarn exec turbo login
-pnpm exec turbo login
+GET /health
+Response: { "status": "ok", "uptime": <seconds> }
 ```
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
+### Ping
 
 ```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo link
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo link
-yarn exec turbo link
-pnpm exec turbo link
+GET /ping
+Response: { "message": "pong", "timestamp": "<ISO-string>" }
 ```
 
-## Useful Links
+### Authentication
 
-Learn more about the power of Turborepo:
+```
+POST /sign-up
+POST /sign-in
+Body: { "user": "..." }
+```
 
-- [Tasks](https://turborepo.com/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.com/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.com/docs/reference/configuration)
-- [CLI Usage](https://turborepo.com/docs/reference/command-line-reference)
+## 🧪 Testing
+
+### Unit Tests
+
+```bash
+cd apps/ping-client
+bun test:unit
+```
+
+### End-to-End Tests
+
+```bash
+cd apps/ping-client
+bun test:e2e
+```
+
+### Run All Tests
+
+```bash
+cd apps/ping-client
+bun test
+```
+
+## 📚 Storybook
+
+The client application includes Storybook for component development:
+
+```bash
+cd apps/ping-client
+bun storybook
+```
+
+Visit `http://localhost:6006` to view the component library.
+
+## 📁 Project Structure
+
+```
+check-uptime/
+├── apps/
+│   ├── ping-server/          # Express.js backend
+│   ├── ping-client/          # SvelteKit frontend
+│   └── docs/                 # Documentation
+├── packages/
+│   ├── eslint-config/        # Shared ESLint configurations
+│   ├── typescript-config/    # Shared TypeScript configurations
+│   └── ui/                   # Shared UI components
+├── turbo.json               # Turborepo configuration
+└── package.json             # Root package configuration
+```
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🔧 Environment Variables
+
+### Server (.env)
+
+```
+PORT=3001
+```
+
+### Client (.env)
+
+```
+# Add any client-specific environment variables here
+```
+
+---
+
+Built with ❤️ using Turborepo, SvelteKit, and Express.js
