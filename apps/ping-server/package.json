@@ -2,11 +2,11 @@
   "name": "ping-server",
   "version": "1.0.0",
   "description": "Express backend server",
-  "main": "dist/index.js",
+  "main": "dist/server.js",
   "scripts": {
     "build": "tsc",
-    "dev": "tsx watch src/index.ts",
-    "start": "node dist/index.js",
+    "dev": "tsx watch src/server.ts",
+    "start": "node dist/server.js",
     "lint": "eslint src --ext .ts",
     "type-check": "tsc --noEmit"
   },
