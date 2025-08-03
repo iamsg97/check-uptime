@@ -1,12 +1,18 @@
 import type { Request, Response } from 'express'
-
-const users: Array<{ name: string }> = []
+import { users } from './utils/users'
 
 export const signUpUser = (req: Request, res: Response) => {
-    const { name } = req.body
-    users.push({ name })
-    res.status(201).json({
-        message: 'User created successfully',
-        timestamp: new Date().toISOString(),
-    })
+    try {
+        const { email, password } = req.body
+        users.push({ email, password })
+        res.status(201).json({
+            message: 'User created successfully',
+            timestamp: new Date().toISOString(),
+        })
+    } catch (error_) {
+        res.status(500).json({
+            message: (error_ as Error).message || 'Internal server error',
+            timestamp: new Date().toISOString(),
+        })
+    }
 }
