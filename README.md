@@ -8,7 +8,7 @@ server backend and a client frontend for monitoring service availability and hea
 This project uses **Turborepo** to manage a monorepo with the following applications:
 
 - **ping-server**: Express.js backend API for health checks and ping endpoints
-- **ping-client**: SvelteKit frontend application for monitoring dashboard
+- **ping-client**: Next.js frontend application for monitoring dashboard
 - **docs**: Documentation and project structure information
 
 ## 🚀 Features
@@ -22,19 +22,19 @@ This project uses **Turborepo** to manage a monorepo with the following applicat
 
 ### Frontend (ping-client)
 
-- **SvelteKit Application** - Modern reactive frontend
-- **Storybook Integration** - Component development and testing
-- **Playwright E2E Testing** - End-to-end test coverage
-- **Vitest Unit Testing** - Component and unit test coverage
+- **Next.js Application** - Modern React-based frontend with App Router
+- **TailwindCSS Styling** - Utility-first CSS framework for styling
+- **TypeScript Support** - Full type safety throughout the application
+- **Modern React 19** - Latest React features and improvements
 
 ## 📦 Tech Stack
 
 - **Runtime**: Bun (v1.2.11+)
 - **Monorepo**: Turborepo
 - **Backend**: Express.js + TypeScript
-- **Frontend**: SvelteKit + TypeScript
-- **Testing**: Playwright (E2E), Vitest (Unit)
-- **Linting**: ESLint + Prettier
+- **Frontend**: Next.js + React 19 + TypeScript
+- **Styling**: TailwindCSS v4
+- **Linting**: ESLint
 - **Package Manager**: Bun workspaces
 
 ## 🛠️ Development Setup
@@ -92,7 +92,7 @@ bun dev
 The applications will be available at:
 
 - **Server**: `http://localhost:3001`
-- **Client**: `http://localhost:5173` (default Vite port)
+- **Client**: `http://localhost:3000` (Next.js default port)
 
 ### Production Build
 
@@ -131,45 +131,38 @@ Body: { "user": "..." }
 
 ## 🧪 Testing
 
-### Unit Tests
+### Server Tests
 
 ```bash
-cd apps/ping-client
-bun test:unit
-```
-
-### End-to-End Tests
-
-```bash
-cd apps/ping-client
-bun test:e2e
-```
-
-### Run All Tests
-
-```bash
-cd apps/ping-client
+cd apps/ping-server
 bun test
 ```
 
-## 📚 Storybook
-
-The client application includes Storybook for component development:
+### Client Development
 
 ```bash
 cd apps/ping-client
-bun storybook
+bun dev        # Start development server
+bun build      # Build for production
+bun lint       # Run ESLint
 ```
 
-Visit `http://localhost:6006` to view the component library.
+## 📚 Development Tools
+
+The project includes modern development tooling:
+
+- **ESLint**: Code linting and formatting
+- **TypeScript**: Type safety across all applications
+- **TailwindCSS**: Utility-first CSS for the frontend
+- **Next.js**: React framework with App Router
 
 ## 📁 Project Structure
 
-```
+```text
 check-uptime/
 ├── apps/
 │   ├── ping-server/          # Express.js backend
-│   ├── ping-client/          # SvelteKit frontend
+│   ├── ping-client/          # Next.js frontend
 │   └── docs/                 # Documentation
 ├── packages/
 │   ├── eslint-config/        # Shared ESLint configurations
@@ -195,16 +188,16 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ### Server (.env)
 
-```
+```bash
 PORT=3001
 ```
 
 ### Client (.env)
 
-```
+```bash
 # Add any client-specific environment variables here
 ```
 
 ---
 
-Built with ❤️ using Turborepo, SvelteKit, and Express.js
+Built with ❤️ using Turborepo, Next.js, and Express.js
